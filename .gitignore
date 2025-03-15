@@ -1,8 +1,6 @@
-*.pkl
 __pycache__/
 *.pyc
 *.pyo
-
 # Data
 # |--gujarat_students_data.csv
 # Model
