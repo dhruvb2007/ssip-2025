@@ -1,2 +1,18 @@
 *.csv
 *.pkl
+__pycache__/
+*.pyc
+*.pyo
+
+# Data
+# |--gujarat_students_data.csv
+# Model
+# |--train_model.py
+# routes
+# |--__init__.py
+# |--personalized_pathway.py
+# |--predict.py
+# .gitignore
+# app.py
+# student_performance_model.pkl
+
