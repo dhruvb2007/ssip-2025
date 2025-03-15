@@ -1,23 +1,11 @@
 from flask import Blueprint, request, jsonify
 import joblib
 import numpy as np
-import gdown
-import os
 
 predict_bp = Blueprint('predict', __name__)
 
-file_id = '1XVhg_HFNkvnJ9j-Ah8aCUXtlMRYtKp_H'  # Your file ID
-model_file = 'student_performance_model.pkl'
-url = f'https://drive.google.com/uc?id={file_id}'
-
-if not os.path.exists(model_file):
-    print("Downloading model from Google Drive...")
-    gdown.download(url, model_file, quiet=False)
-else:
-    print("Model file already exists.")
-
 # Load the trained model
-model = joblib.load(model_file)
+model = joblib.load("/student_performance_model.pkl")
 
 # Define max values for normalization
 max_values = {
