@@ -14,5 +14,6 @@ __pycache__/
 # |--predict.py
 # .gitignore
 # app.py
+# config.py
 # student_performance_model.pkl
 
