@@ -1,12 +1,8 @@
 from flask import Blueprint, request, jsonify
-import joblib
 import numpy as np
+from Model.model_loader import load_model  # Import model loader
 
 predict_bp = Blueprint('predict', __name__)
-
-# Load the trained model
-def load_model():
-    return joblib.load("student_performance_model.pkl")
 
 # Define max values for normalization
 max_values = {
@@ -23,16 +19,10 @@ max_values = {
 def predict():
     try:
         model = load_model()
-        # Get input data
         input_data = {key: float(request.args.get(key)) for key in max_values}
-
-        # Normalize input
         input_data_normalized = [input_data[key] / max_values[key] for key in max_values]
 
-        # Convert to 2D array
         input_data_reshaped = np.array(input_data_normalized).reshape(1, -1)
-
-        # Predict score and scale back to 0-100
         predicted_score = model.predict(input_data_reshaped)[0] * 100
 
         return jsonify({
