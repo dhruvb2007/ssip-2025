@@ -18,17 +18,18 @@ max_values = {
 @predict_bp.route('/predict', methods=['GET'])
 def predict():
     try:
-        model = load_model()
-        input_data = {key: float(request.args.get(key)) for key in max_values}
+        model = load_model()  # Use cached model
+        input_data = {key: float(request.args.get(key, 0)) for key in max_values}
         input_data_normalized = [input_data[key] / max_values[key] for key in max_values]
 
         input_data_reshaped = np.array(input_data_normalized).reshape(1, -1)
         predicted_score = model.predict(input_data_reshaped)[0] * 100
 
         return jsonify({
+            "status": "success",
             "Predicted_Final_Score": round(predicted_score, 2),
             "Input_Data": input_data
         })
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"status": "error", "message": str(e)}), 500
